@@ -36,6 +36,13 @@ class UserController < ApplicationController
 		erb :'users/show'
 	end
 
+	post '/users/:user_id' do
+		@user = current_user
+		@user.clicks += 1
+		@user.save
+		redirect "/users/#{@user.id}"
+	end
+
 	get '/logout' do
 		session.clear
 		redirect '/'
