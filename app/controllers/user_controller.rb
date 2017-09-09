@@ -9,7 +9,7 @@ class UserController < ApplicationController
 	end
 
 	post '/signup' do
-		user = User.create(username: params[:username], password: params[:password])
+		user = User.create(username: params[:username], password: params[:password], clicks: 0)
 		if user.save
 			redirect '/login'
 		else
