@@ -1,4 +1,4 @@
-#Sinatra Click
+# Sinatra Click
 
 A simple CRUD app made using Sinatra and ActiveRecord. Allows users to gain clicks and purchase rewards using acculmated clicks.
 
