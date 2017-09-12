@@ -24,6 +24,11 @@
 
 	<h2>Clicks:<%= @user.clicks%> </h2>
 
+	<h2>Rewards:</h2>
+	<% @user.user_rewards.each do |user_reward| %>
+		<%= user_reward.reward.name.pluralize %> <%= user_reward.quantity %>
+	<% end %>
+
 
 </body>
 </html>

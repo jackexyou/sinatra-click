@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20170909033321) do
   create_table "user_rewards", force: :cascade do |t|
     t.integer "user_id"
     t.integer "reward_id"
-    t.integer "quantity"
+    t.integer "quantity", default: 0
   end
 
   create_table "users", force: :cascade do |t|

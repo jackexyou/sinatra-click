@@ -1,1 +1,25 @@
-hi
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Clicker</title>
+</head>
+<body>
+
+	<h1>Available Rewards!</h1>
+
+	<% @rewards.each do |reward| %>
+	<form action='/rewards' method="POST">
+		
+		<h3>
+			<input type="hidden" name="name" value="<%= reward.name %>">
+			<input type="submit" value="Buy">
+			<%= reward.name %> - <%= reward.cost %> Clicks
+		</h3>
+	</form>
+		
+	<% end %>
+</body>
+</html>
