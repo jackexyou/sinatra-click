@@ -9,11 +9,15 @@ class UserController < ApplicationController
 	end
 
 	post '/signup' do
-		user = User.create(username: params[:username], password: params[:password], clicks: 0)
-		if user.save
-			redirect '/login'
+		if params["username"].blank?
+			redirect '/signup'
 		else
-			redirect '/signup'	
+			user = User.create(username: params[:username], password: params[:password], clicks: 0)
+			if user.save
+				redirect '/login'	
+			else
+				redirect '/signup'
+			end
 		end
 	end
 
