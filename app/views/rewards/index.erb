@@ -14,12 +14,19 @@
 	<form action='/rewards' method="POST">
 		
 		<h3>
-			<input type="hidden" name="name" value="<%= reward.name %>">
-			<input type="submit" value="Buy">
+			<%if logged_in? && @user.id == session[:user_id]%> 
+				<input type="hidden" name="name" value="<%= reward.name %>">
+				<input type="submit" value="Buy">
+			<% end %>
+
 			<%= reward.name %> - <%= reward.cost %> Clicks
 		</h3>
 	</form>
 		
+	<% end %>
+
+	<%if logged_in? && @user.id == session[:user_id]%> 
+		<a href="users/<%= @user.id %>">User page</a>
 	<% end %>
 </body>
 </html>

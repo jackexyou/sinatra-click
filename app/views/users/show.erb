@@ -10,12 +10,13 @@
 
 		<h1>Welcome <%=@user.username%>!</h1>
 
+		<p><a href="/logout">Log Out</a></p>
+
+		<p><a href="/rewards">View rewards</a></p>
 
 		<form action='/users/:user_id' method="POST">
 			<p><input type="submit" value="Click"></p>
 		</form>
-
-		<p><a href="/logout">Log Out</a></p>
 
 	<% else %>
 
