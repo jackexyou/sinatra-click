@@ -9,15 +9,12 @@ class UserController < ApplicationController
 	end
 
 	post '/signup' do
-		if params["username"].blank?
-			redirect '/signup'
+		user = User.new(username: params[:username], password: params[:password])
+		if user.save
+			session[:user_id] = user.id
+			redirect "/users/#{user.id}"
 		else
-			user = User.create(username: params[:username], password: params[:password], clicks: 0)
-			if user.save
-				redirect '/login'	
-			else
-				redirect '/signup'
-			end
+			redirect '/signup'
 		end
 	end
 
@@ -41,10 +38,12 @@ class UserController < ApplicationController
 	end
 
 	post '/users/:user_id' do
-		@user = current_user
-		@user.clicks += 1
-		@user.save
-		redirect "/users/#{@user.id}"
+		if logged_in?
+			current_user.update(clicks: current_user.clicks + 1)
+			redirect "/users/#{current_user.id}"
+		else 
+			redirect to '/login'
+		end
 	end
 
 	get '/logout' do

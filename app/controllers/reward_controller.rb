@@ -3,9 +3,7 @@ require 'pry'
 class RewardController < ApplicationController 
 
 	get '/rewards' do 
-		@user = current_user
 		@rewards = Reward.all
-
 		erb :"rewards/index"
 	end
 
