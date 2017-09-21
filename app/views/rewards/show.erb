@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Clicker - Rewards</title>
+</head>
+<body>
+	
+	<h1>Clicker - Rewards</h1>
+
+	<h3><%= @reward.name %> - <%= @user_reward.quantity %></h3>
+
+	<% if logged_in? %>
+	<h4>Update Quantity
+		<form action="/rewards/<%=@reward.id%>" method="POST">
+			<p>
+				<input id="hidden" type="hidden" name="_method" value="patch"> 
+				<input id="quantity" type="text" name="quantity">
+				<input type="submit" value="Update">
+			</p>
+		</form>
+		
+		<form action="/rewards/<%=@reward.id%>/delete" method="POST">
+			<input id="hidden" type="hidden" name="_method" value="delete"> 
+			<input type="submit" value="Delete">
+		</form>
+	<% end %>
+
+</body>
+</html>

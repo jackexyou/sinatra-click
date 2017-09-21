@@ -27,7 +27,11 @@
 
 	<h2>Rewards:</h2>
 	<% @user.user_rewards.each do |user_reward| %>
-		<%= user_reward.reward.name.pluralize %> <%= user_reward.quantity %>
+		<p>
+			<% if user_reward.reward %>
+				<%= user_reward.reward.name.pluralize %> <%= user_reward.quantity %>
+			<% end %>
+		</p>
 	<% end %>
 
 

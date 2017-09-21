@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Clicker - Edit Reward</title>
+</head>
+<body>
+	<h1>Clicker - Edit Reward</h1>
+
+	<h3>Change what was on your mind.</h3>
+
+	<form action="/rewards/<%=@reward.id%>" method="POST">
+		<input id="hidden" type="hidden" name="_method" value="patch"> 
+		<input type="submit" value="Save Edit">
+	</form>
+</body>
+</html>
