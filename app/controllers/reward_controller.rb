@@ -12,7 +12,6 @@ class RewardController < ApplicationController
 		@user = current_user
 		@reward = Reward.find_by(name: params['name'])
 		@user_reward = UserReward.find_or_create_by(user_id: @user.id, reward_id: @reward.id)
-		binding.pry
 		if @user.clicks >= @reward.cost
 			@user.update(clicks: @user.clicks - @reward.cost)
 			@user_reward.update(quantity: @user_reward.quantity + 1)
@@ -27,12 +26,10 @@ class RewardController < ApplicationController
 	end
 
 	post '/rewards/new' do
-		@reward = Reward.new(name: params['name'], cost: params['cost'])
-		if @reward.name.blank? || @reward.cost == 0
+		if params['name'].blank? || params['cost'].to_i <= 0
 			redirect "/rewards/new"
-		else
-			@reward.save
 		end
+		@reward = Reward.create(name: params['name'], cost: params['cost'])
 		redirect "/rewards"
 	end
 
@@ -42,12 +39,19 @@ class RewardController < ApplicationController
 		erb :'rewards/show'
 	end
 
-	patch '/rewards/:id' do  
+	patch '/rewards/:id' do
+		if params['name'].blank? || params['cost'].to_i <= 0
+			redirect "/rewards/#{params[:id]}"
+		end
+
 		@reward = Reward.find(params[:id])
 		@user_reward = UserReward.find_or_create_by(user_id: current_user.id, reward_id: @reward.id)
 		@reward.update(name: params['name'], cost: params['cost'])
-		@user_reward.update(quantity: params["quantity"])
+		if !params['quantity'].blank?
+			@user_reward.update(quantity: params["quantity"])
+		end
 		redirect "users/#{current_user.id}"
+
 	end
 
 	delete '/rewards/:id/delete' do
