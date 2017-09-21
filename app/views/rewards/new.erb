@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Clicker - New Reward</title>
+</head>
+<body>
+	
+	<h1>Clicker - New Reward</h1>
+ 	
+
+	<% if logged_in? %>
+		<form action="/rewards/new" method="POST">
+			<p>
+				<p><label for="name">Name: </label><input id="name" type="text" name="name"></p>
+				<p><label for="cost">Cost: </label><input id="cost" type="text" name="cost"></p>
+				<input type="submit" value="Create">
+			</p>
+		</form>
+	<% end %>
+
+</body>
+</html>

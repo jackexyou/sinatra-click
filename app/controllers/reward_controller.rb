@@ -7,6 +7,7 @@ class RewardController < ApplicationController
 		erb :"rewards/index"
 	end
 
+
 	post '/rewards' do
 		@user = current_user
 		@reward = Reward.find_by(name: params['name'])
@@ -21,6 +22,20 @@ class RewardController < ApplicationController
 		end
 	end
 
+	get '/rewards/new' do
+		erb :"rewards/new"
+	end
+
+	post '/rewards/new' do
+		@reward = Reward.new(name: params['name'], cost: params['cost'])
+		if @reward.name.blank? || @reward.cost == 0
+			redirect "/rewards/new"
+		else
+			@reward.save
+		end
+		redirect "/rewards"
+	end
+
 	get '/rewards/:id' do 
 		@reward = Reward.find(params[:id])
 		@user_reward = UserReward.find_or_create_by(user_id: current_user.id, reward_id: @reward.id)
@@ -30,6 +45,7 @@ class RewardController < ApplicationController
 	patch '/rewards/:id' do  
 		@reward = Reward.find(params[:id])
 		@user_reward = UserReward.find_or_create_by(user_id: current_user.id, reward_id: @reward.id)
+		@reward.update(name: params['name'], cost: params['cost'])
 		@user_reward.update(quantity: params["quantity"])
 		redirect "users/#{current_user.id}"
 	end

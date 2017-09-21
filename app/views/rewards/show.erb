@@ -8,18 +8,24 @@
 	
 	<h1>Clicker - Rewards</h1>
 
-	<h3><%= @reward.name %> - <%= @user_reward.quantity %></h3>
+	<h3><%= @reward.name %></h3>
+ 	<h3>Cost: <%= @reward.cost %> Clicks</h3> 
+ 	
 
 	<% if logged_in? %>
-	<h4>Update Quantity
+	<h3>Quantity: <%= @user_reward.quantity %></h3>
+	<br>
+	<h4>Update Quantity</h4>
 		<form action="/rewards/<%=@reward.id%>" method="POST">
 			<p>
 				<input id="hidden" type="hidden" name="_method" value="patch"> 
-				<input id="quantity" type="text" name="quantity">
+				<p><label for="name">Name: </label><input id="name" type="text" name="name"></p>
+				<p><label for="cost">Cost: </label><input id="cost" type="text" name="cost"></p>
+				<p><label for="quantity">Quantity: </label><input id="quantity" type="text" name="quantity"></p>
 				<input type="submit" value="Update">
 			</p>
 		</form>
-		
+		<br></br>
 		<form action="/rewards/<%=@reward.id%>/delete" method="POST">
 			<input id="hidden" type="hidden" name="_method" value="delete"> 
 			<input type="submit" value="Delete">
