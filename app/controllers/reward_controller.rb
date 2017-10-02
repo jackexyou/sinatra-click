@@ -21,12 +21,18 @@ class RewardController < ApplicationController
 	end
 
 	get '/rewards/new' do
-		erb :"rewards/new"
+		if current_user.is_admin
+			erb :"rewards/new"
+		else
+			erb :'rewards/notadmin'
+		end
 	end
 
 	post '/rewards/new' do
-		@reward = Reward.create(name: params['name'], cost: params['cost'])
-		redirect "/rewards"
+		if current_user.is_admin
+			@reward = Reward.create(name: params['name'], cost: params['cost'])
+			redirect "/rewards"
+		end
 	end
 
 	get '/rewards/:id' do 
@@ -36,14 +42,17 @@ class RewardController < ApplicationController
 	end
 
 	patch '/rewards/:id' do
-		@reward = Reward.find(params[:id])
-		@user_reward = UserReward.find_or_create_by(user_id: current_user.id, reward_id: @reward.id)
-		@reward.update(name: params['name'], cost: params['cost'])
-		if !params['quantity'].blank?
-			@user_reward.update(quantity: params["quantity"])
+		if current_user.is_admin
+			@reward = Reward.find(params[:id])
+			@user_reward = UserReward.find_or_create_by(user_id: current_user.id, reward_id: @reward.id)
+			@reward.update(name: params['name'], cost: params['cost'])
+			if !params['quantity'].blank?
+				@user_reward.update(quantity: params["quantity"])
+			end
+			redirect "users/#{current_user.id}"
+		else
+			erb :'rewards/notadmin'
 		end
-		redirect "users/#{current_user.id}"
-
 	end
 
 	delete '/rewards/:id/delete' do
