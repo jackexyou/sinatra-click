@@ -26,9 +26,6 @@ class RewardController < ApplicationController
 	end
 
 	post '/rewards/new' do
-		if params['cost'].to_i <= 0
-			redirect "/rewards/new"
-		end
 		@reward = Reward.create(name: params['name'], cost: params['cost'])
 		redirect "/rewards"
 	end
@@ -40,10 +37,6 @@ class RewardController < ApplicationController
 	end
 
 	patch '/rewards/:id' do
-		if params['cost'].to_i <= 0
-			redirect "/rewards/#{params[:id]}"
-		end
-
 		@reward = Reward.find(params[:id])
 		@user_reward = UserReward.find_or_create_by(user_id: current_user.id, reward_id: @reward.id)
 		@reward.update(name: params['name'], cost: params['cost'])
