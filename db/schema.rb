@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170918152515) do
+ActiveRecord::Schema.define(version: 20171002152233) do
 
   create_table "rewards", force: :cascade do |t|
     t.string "name"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20170918152515) do
     t.string "username"
     t.string "password_digest"
     t.integer "clicks", default: 0
+    t.boolean "is_admin", default: false
   end
 
 end

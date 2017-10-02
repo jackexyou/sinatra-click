@@ -12,16 +12,16 @@
  	<h3>Cost: <%= @reward.cost %> Clicks</h3> 
  	
 
-	<% if logged_in? %>
+	<% if logged_in? && is_admin? %>
 	<h3>Quantity: <%= @user_reward.quantity %></h3>
 	<br>
 	<h4>Update Quantity</h4>
 		<form action="/rewards/<%=@reward.id%>" method="POST">
 			<p>
 				<input id="hidden" type="hidden" name="_method" value="patch"> 
-				<p><label for="name">Name: </label><input id="name" type="text" name="name"></p>
-				<p><label for="cost">Cost: </label><input id="cost" type="text" name="cost"></p>
-				<p><label for="quantity">Quantity: </label><input id="quantity" type="text" name="quantity"></p>
+				<p><label for="name">Name: </label><input id="name" type="text" name="name" value="<%= @reward.name %>"></p>
+				<p><label for="cost">Cost: </label><input id="cost" type="number" name="cost" value="<%= @reward.cost %>"></p>
+				<p><label for="quantity">Quantity: </label><input id="quantity" type="number" name="quantity" value="<%= @user_reward.quantity %>"></p>
 				<input type="submit" value="Update">
 			</p>
 		</form>
