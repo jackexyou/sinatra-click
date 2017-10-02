@@ -26,7 +26,7 @@ class RewardController < ApplicationController
 	end
 
 	post '/rewards/new' do
-		if params['name'].blank? || params['cost'].to_i <= 0
+		if params['cost'].to_i <= 0
 			redirect "/rewards/new"
 		end
 		@reward = Reward.create(name: params['name'], cost: params['cost'])
@@ -40,7 +40,7 @@ class RewardController < ApplicationController
 	end
 
 	patch '/rewards/:id' do
-		if params['name'].blank? || params['cost'].to_i <= 0
+		if params['cost'].to_i <= 0
 			redirect "/rewards/#{params[:id]}"
 		end
 
