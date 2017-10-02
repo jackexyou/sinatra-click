@@ -12,7 +12,7 @@
  	<h3>Cost: <%= @reward.cost %> Clicks</h3> 
  	
 
-	<% if logged_in? && is_admin? %>
+	<% if logged_in? && current_user.is_admin %>
 	<h3>Quantity: <%= @user_reward.quantity %></h3>
 	<br>
 	<h4>Update Quantity</h4>

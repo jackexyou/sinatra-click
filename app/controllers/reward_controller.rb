@@ -9,13 +9,12 @@ class RewardController < ApplicationController
 
 
 	post '/rewards' do
-		@user = current_user
 		@reward = Reward.find_by(name: params['name'])
-		@user_reward = UserReward.find_or_create_by(user_id: @user.id, reward_id: @reward.id)
-		if @user.clicks >= @reward.cost
-			@user.update(clicks: @user.clicks - @reward.cost)
+		@user_reward = UserReward.find_or_create_by(user_id: current_user.id, reward_id: @reward.id)
+		if current_user.clicks >= @reward.cost
+			current_user.update(clicks: current_user.clicks - @reward.cost)
 			@user_reward.update(quantity: @user_reward.quantity + 1)
-			redirect "/users/#{@user.id}"
+			redirect "/users/#{current_user.id}"
 		else
 			redirect "/rewards"
 		end
